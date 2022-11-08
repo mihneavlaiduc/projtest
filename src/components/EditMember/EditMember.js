@@ -203,6 +203,7 @@ const EditMember = () => {
                 let modifiedCards = [...cards]
                 modifiedCards[toEditIndex] = { ...cardObject }
                 setCards(modifiedCards)
+                setCardToEdit(null)
               }
             }} id="save-button" className="save-button">
               Update
