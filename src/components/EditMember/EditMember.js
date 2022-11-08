@@ -2,38 +2,42 @@ import React, { useContext, useEffect, useState } from "react";
 import { CardListContext } from "../Helper/CardListContext";
 
 const INITIAL_STATE = {
-    firstName: "",
-    lastName: "",
-    address: {
-      streetAndNumber: "",
-      postalCode: "",
-      city: "",
-      country: "",
-    },
-    sports: [],
-    gender: "",
-    age: 0,
-    activity_class: "",
-  };
-  
+  firstName: "",
+  lastName: "",
+  address: {
+    streetAndNumber: "",
+    postalCode: "",
+    city: "",
+    country: "",
+  },
+  sports: [],
+  gender: "",
+  age: 0,
+  activity_class: "",
+};
+
 
 const EditMember = () => {
 
-  const {cardToEdit, setCardToEdit, cards} = useContext(CardListContext)
+  const { cardToEdit, setCardToEdit, cards, setCards } = useContext(CardListContext)
   const [cardObject, setCardObject] = useState({
     ...INITIAL_STATE,
   });
 
   useEffect(() => {
-    if(cardToEdit == null) {
-        setCardObject(INITIAL_STATE)
+    if (cardToEdit == null) {
+      setCardObject(INITIAL_STATE)
     } else {
-        //for each pt card
-        //
-        setCardObject(cardToEdit)
+      let toEditCard = {}
+      cards.forEach(card => {
+        if (card.id === cardToEdit) {
+          toEditCard = { ...card }
+        }
+      })
+      setCardObject(toEditCard)
     }
-  },[cardToEdit])
-//props.id in cardtoedit
+  }, [cardToEdit])
+
   return (
     <div id="add-member-container">
       <div id="add-member-container-content">
@@ -59,6 +63,9 @@ const EditMember = () => {
               id="add-first-name-text"
               type="text"
               required
+              onChange={(e) => {
+                setCardObject({ ...cardObject, firstName: e.target.value })
+              }}
             ></input>
           </div>
           <div className="last-name-wrapper">
@@ -185,7 +192,19 @@ const EditMember = () => {
             </div>
           </div>
           <div className="save-wrapper">
-            <button id="save-button" className="save-button">
+            <button onClick={() => {
+              if (cardToEdit !== null) {
+                let toEditIndex = null
+                cards.forEach((card, key) => {
+                  if (card.id === cardToEdit) {
+                    toEditIndex = key
+                  }
+                })
+                let modifiedCards = [...cards]
+                modifiedCards[toEditIndex] = { ...cardObject }
+                setCards(modifiedCards)
+              }
+            }} id="save-button" className="save-button">
               Update
             </button>
           </div>

@@ -48,21 +48,7 @@ const AddMember = () => {
               required
               value={cardObject.firstName}
               onChange={(event) => {
-                setCardObject({
-                  id: cardObject.id,
-                  firstName: event.target.value,
-                  lastName: cardObject.lastName,
-                  address: {
-                    streetAndNumber: cardObject.streetAndNumber,
-                    postalCode: cardObject.postalCode,
-                    city: cardObject.city,
-                    country: cardObject.country,
-                  },
-                  sports: cardObject.sports,
-                  gender: cardObject.gender,
-                  age: cardObject.age,
-                  activity_class: cardObject.activity_class,
-                });
+                setCardObject({ ...cardObject, firstName: event.target.value })
               }}
             ></input>
           </div>
@@ -86,22 +72,9 @@ const AddMember = () => {
               id="add-address-text"
               type="text"
               required
+              value={cardObject.address.streetAndNumber}
               onChange={(event) => {
-                setCardObject({
-                  id: crypto.randomUUID(),
-                  firstName: cardObject.firstName,
-                  lastName: cardObject.lastName,
-                  address: {
-                    streetAndNumber: event.target.value,
-                    postalCode: cardObject.postalCode,
-                    city: cardObject.city,
-                    country: cardObject.country,
-                  },
-                  sports: cardObject.sports,
-                  gender: cardObject.gender,
-                  age: cardObject.age,
-                  activity_class: cardObject.activity_class,
-                });
+                setCardObject({ ...cardObject, address: { ...cardObject.address, streetAndNumber: event.target.value } })
               }}
             ></input>
           </div>
@@ -112,21 +85,7 @@ const AddMember = () => {
               type="text"
               required
               onChange={(event) => {
-                setCardObject({
-                  id: crypto.randomUUID(),
-                  firstName: cardObject.firstName,
-                  lastName: cardObject.lastName,
-                  address: {
-                    streetAndNumber: cardObject.address.streetAndNumber,
-                    postalCode: event.target.value,
-                    city: cardObject.address.city,
-                    country: cardObject.address.country,
-                  },
-                  sports: cardObject.sports,
-                  gender: cardObject.gender,
-                  age: cardObject.age,
-                  activity_class: cardObject.activity_class,
-                });
+                setCardObject({ ...cardObject, address: { ...cardObject.address, postalCode: event.target.value } })
               }}
             ></input>
           </div>
@@ -137,21 +96,7 @@ const AddMember = () => {
               type="text"
               required
               onChange={(event) => {
-                setCardObject({
-                  id: crypto.randomUUID(),
-                  firstName: cardObject.firstName,
-                  lastName: cardObject.lastName,
-                  address: {
-                    streetAndNumber: cardObject.address.streetAndNumber,
-                    postalCode: cardObject.address.postalCode,
-                    city: event.target.value,
-                    country: cardObject.address.country,
-                  },
-                  sports: cardObject.sports,
-                  gender: cardObject.gender,
-                  age: cardObject.age,
-                  activity_class: cardObject.activity_class,
-                });
+                setCardObject({ ...cardObject, address: { ...cardObject.address, city: event.target.value } })
               }}
             ></input>
           </div>
@@ -162,21 +107,7 @@ const AddMember = () => {
               type="text"
               required
               onChange={(event) => {
-                setCardObject({
-                  id: crypto.randomUUID(),
-                  firstName: cardObject.firstName,
-                  lastName: cardObject.lastName,
-                  address: {
-                    streetAndNumber: cardObject.address.streetAndNumber,
-                    postalCode: cardObject.address.postalCode,
-                    city: cardObject.address.city,
-                    country: event.target.value,
-                  },
-                  sports: cardObject.sports,
-                  gender: cardObject.gender,
-                  age: cardObject.age,
-                  activity_class: cardObject.activity_class,
-                });
+                setCardObject({ ...cardObject, address: { ...cardObject.address, country: event.target.value } })
               }}
             ></input>
           </div>
@@ -184,7 +115,9 @@ const AddMember = () => {
         <div id="third-row" className="third-row">
           <div className="gender-wrapper">
             <label className="gender">Gender</label>
-            <select defaultValue={""} id="add-gender">
+            <select defaultValue={""} id="add-gender" onChange={(e) => {
+              console.log(e.target.value)
+            }}>
               <option value="" disabled="disabled"></option>
               <option value="male"> Male </option>
               <option value="female"> Female </option>
@@ -197,9 +130,9 @@ const AddMember = () => {
               id="add-age-text"
               type="text"
               required
-              // onChange={(event) => {
-              //     setAge(event.target.value);
-              // }}
+            // onChange={(event) => {
+            //     setAge(event.target.value);
+            // }}
             ></input>
           </div>
           <div className="activity-class-wrapper">

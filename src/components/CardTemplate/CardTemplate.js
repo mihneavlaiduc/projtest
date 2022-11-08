@@ -19,7 +19,7 @@ const CardTemplate = (props) => {
             </div>
             <div id="member-card-bot">
                 <button className="delete-button">Delete</button>
-                <button onClick={() => setCardToEdit({...props})} className="edit-button">Edit</button>
+                <button onClick={() => setCardToEdit(props.id)} className="edit-button">Edit</button>
             </div>
         </div>
     )
